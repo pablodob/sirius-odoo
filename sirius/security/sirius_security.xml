@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="group_sirius_views_admin" model="res.groups">
+            <field name="name">Sirius Config Tools</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="sirius_view_tree_view" model="ir.ui.view">
+            <field name="name">sirius.view.tree</field>
+            <field name="model">sirius.view</field>
+            <field name="arch" type="xml">
+                <list string="Sirius view">
+                    <field name="name"/>
+                    <field name="model_id"/>
+                    <field name="type"/>
+                    <field name="group_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="sirius_view_form" model="ir.ui.view">
+            <field name="name">sirius.view.form</field>
+            <field name="model">sirius.view</field>
+            <field name="arch" type="xml">
+                <form string="Sirius view">
+                    <sheet>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="model_id" no_create="1"/>
+                                <field name="type"/>
+                                <field name="group_id" no_create="1"/>
+                            </group>
+                            <group>
+                                <field name="can_read"/>
+                                <field name="can_write"/>
+                                <field name="can_create"/>
+                                <field name="can_unlink"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Char fields">
+                                <field name="char_fields_ids" widget="one2many">
+                                    <list string="Char fields" editable="bottom">
+                                        <field name="label"/>
+                                        <field name="field_id" no_create="1"/>
+                                        <field name="required"/>
+                                        <field name="readonly"/>
+                                        <field name="default_value"/>
+                                        <field name="hint_value"/>
+                                        <field name="min_length"/>
+                                        <field name="max_length"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Integer fields">
+                                <field name="int_fields_ids" widget="one2many">
+                                    <list string="Int fields" editable="bottom">
+                                        <field name="label"/>
+                                        <field name="field_id" no_create="1"/>
+                                        <field name="required"/>
+                                        <field name="readonly"/>
+                                        <field name="default_value"/>
+                                        <field name="hint_value"/>
+                                        <field name="minimum"/>
+                                        <field name="maximum"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sirius_view_action" model="ir.actions.act_window">
+            <field name="name">Sirius views</field>
+            <field name="res_model">sirius.view</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="menu_sirius" name="Sirius"
+                  web_icon="sirius,static/description/icon.png"
+                  sequence="20">
+            <menuitem id="menu_sirius_view" name="Sirius Views"
+                    sequence="1" action="sirius_view_action">
+            </menuitem>
+        </menuitem>
+    </data>
+</odoo>

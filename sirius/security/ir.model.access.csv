@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sirius_view_admin,access_sirius_view_system,model_sirius_view,group_sirius_views_admin,1,1,1,1
+access_sirius_view_field_admin,access_sirius_view_field_system,model_sirius_view_field,group_sirius_views_admin,1,1,1,1
+access_sirius_view_field_char_admin,access_sirius_view_field_char_system,model_sirius_view_field_char,group_sirius_views_admin,1,1,1,1
+access_sirius_view_field_int_admin,access_sirius_view_field_int_system,model_sirius_view_field_int,group_sirius_views_admin,1,1,1,1
