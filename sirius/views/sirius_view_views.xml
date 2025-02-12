@@ -42,7 +42,7 @@
                                 <field name="char_fields_ids" widget="one2many">
                                     <list string="Char fields" editable="bottom">
                                         <field name="label"/>
-                                        <field name="field_id" no_create="1"/>
+                                        <field name="field_id" no_create="1" domain="[('ttype','=','char')]"/>
                                         <field name="required"/>
                                         <field name="readonly"/>
                                         <field name="default_value"/>
@@ -56,13 +56,21 @@
                                 <field name="int_fields_ids" widget="one2many">
                                     <list string="Int fields" editable="bottom">
                                         <field name="label"/>
-                                        <field name="field_id" no_create="1"/>
+                                        <field name="field_id" no_create="1" domain="[('ttype','=','integer')]"/>
                                         <field name="required"/>
                                         <field name="readonly"/>
                                         <field name="default_value"/>
                                         <field name="hint_value"/>
                                         <field name="minimum"/>
                                         <field name="maximum"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Sequence fields">
+                                <field name="sequence_ids" widget="one2many">
+                                    <list string="Sequence fields">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="sirius_field_name"/>
                                     </list>
                                 </field>
                             </page>
