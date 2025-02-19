@@ -60,6 +60,14 @@ class Sirius(http.Controller):
                         }
                     })
 
+                for block in view.block_fields_ids:
+                    fields.append({
+                        'store_into': block.field_id.name,
+                        'label': block.label,
+                        'ttype': 'block',
+                        'type': block.type
+                        }
+                    )
                 view_dict['fields'] = fields
                 dict_return.append(view_dict)
         _logger.info(dict_return)

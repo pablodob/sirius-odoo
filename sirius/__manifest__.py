@@ -17,6 +17,7 @@
     'data': [
         'security/sirius_security.xml',
         'security/ir.model.access.csv',
+        'wizard/sirius_field_wizard.xml',
         'views/sirius_view_views.xml',
     ],
 

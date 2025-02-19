@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sirius_field_wizard_form" model="ir.ui.view">
+        <field name="name">sirius.field.wizard.form</field>
+        <field name="model">sirius.field.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Add Field">
+                <group>
+                    <field name="sirius_view_id" invisible="1"/>
+                    <field name="model_id" invisible="1"/>
+                    <field name="sirius_block_id" invisible="1"/>
+                    <field name="sirius_field_char_id" invisible="1"/>
+                    <field name="sirius_field_int_id" invisible="1"/>
+                    <group>
+                        <field name="label"/>
+                    </group>
+                    <group>
+                        <field name="field_type" invisible = "sirius_block_id or sirius_field_char_id or sirius_field_int_id" options="{'no_create': True}"/>
+                    </group>
+                    <group invisible = "field_type not in ('char', 'integer')">
+                        <field name="field_id" invisible = "sirius_block_id or sirius_field_char_id or sirius_field_int_id" options="{'no_create': True}"/>
+                        <field name="required"/>
+                        <field name="readonly"/>
+                        <field name="default_value"/>
+                        <field name="hint_value"/>
+                    </group>
+                    <group invisible = "field_type not in ('char', 'integer')">
+                        <field name="min_length" invisible = "field_type != 'char'"/>
+                        <field name="max_length" invisible = "field_type != 'char'"/>
+                        <field name="minimum" invisible = "field_type != 'integer'"/>
+                        <field name="maximum" invisible = "field_type != 'integer'"/>
+                    </group>
+                    <group invisible = "field_type != 'block'">
+                        <field name="type"/>
+                        <field name="image" invisible = "type != 'image'"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_save_field" type="object" string="Save" class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
