@@ -22,20 +22,22 @@ class SiriusViewFieldSequence(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        fields_sequence = super(SiriusViewFieldSequence, self).create(vals_list)
+        for vals in vals_list:
+            if 'sequence' not in vals or vals['sequence'] is None:
+                max_sequence = self.env['sirius.view.sequence'].search(
+                    [('view_id', '=', vals.get('view_id'))], order='sequence desc', limit=1
+                ).sequence or 0
+                vals['sequence'] = max_sequence + 1
 
-        for seq in fields_sequence:
-            seq.sequence = self.env['sirius.view.sequence'].search(
-                [('view_id', '=', seq.view_id.id)],
-                order='sequence desc', limit=1).sequence + 1
-            if seq.sirius_field_char_id:
-                seq.field_type = 'char'
-            if seq.sirius_field_int_id:
-                seq.field_type = 'integer'
-            if seq.sirius_block_id:
-                seq.field_type = 'block'
+            # Determinar el tipo de campo
+            if vals.get('sirius_field_char_id'):
+                vals['field_type'] = 'char'
+            elif vals.get('sirius_field_int_id'):
+                vals['field_type'] = 'integer'
+            elif vals.get('sirius_block_id'):
+                vals['field_type'] = 'block'
 
-        return
+        return super(SiriusViewFieldSequence, self).create(vals_list)
 
     def write(self, values):
         _logger.info(values)
@@ -81,6 +83,7 @@ class SiriusViewFieldSequence(models.Model):
 
     
     def action_open_wizard(self):
+        _logger.info(self)
         if self.sirius_block_id:
             return {
                 'name': 'Edit',
