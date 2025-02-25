@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-import logging
 from odoo import api, fields, models, _
-
-_logger = logging.getLogger(__name__)
 
 class SiriusViewFieldSequence(models.Model):
     _name = "sirius.view.sequence"
@@ -40,7 +37,6 @@ class SiriusViewFieldSequence(models.Model):
         return super(SiriusViewFieldSequence, self).create(vals_list)
 
     def write(self, values):
-        _logger.info(values)
         if 'sequence' in values:
             if self.sirius_field_char_id:
                 self.sirius_field_char_id.sequence = values.get('sequence')
@@ -83,7 +79,6 @@ class SiriusViewFieldSequence(models.Model):
 
     
     def action_open_wizard(self):
-        _logger.info(self)
         if self.sirius_block_id:
             return {
                 'name': 'Edit',
