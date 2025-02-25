@@ -18,9 +18,11 @@
                         <field name="field_type" invisible = "sirius_block_id or sirius_field_char_id or sirius_field_int_id" options="{'no_create': True}"/>
                     </group>
                     <group invisible = "field_type not in ('char', 'integer')">
-                        <field name="field_id" invisible = "sirius_block_id or sirius_field_char_id or sirius_field_int_id" options="{'no_create': True}"/>
-                        <field name="required"/>
-                        <field name="readonly"/>
+                        <field name="field_id"  required = "field_type in ('char', 'integer')" invisible = "sirius_block_id or sirius_field_char_id or sirius_field_int_id" options="{'no_create': True}"/>
+                        <field name="edit_required" invisible='True'/>
+                        <field name="edit_readonly" invisible='True'/>
+                        <field name="required" readonly = "edit_required == False"/>
+                        <field name="readonly" readonly = "edit_readonly == False"/>
                         <field name="default_value"/>
                         <field name="hint_value"/>
                     </group>
@@ -31,8 +33,8 @@
                         <field name="maximum" invisible = "field_type != 'integer'"/>
                     </group>
                     <group invisible = "field_type != 'block'">
-                        <field name="type"/>
-                        <field name="image" invisible = "type != 'image'"/>
+                        <field name="type" required = "field_type == 'block'"/>
+                        <field name="image" invisible = "type != 'image'" required = "type == 'image'"/>
                     </group>
                 </group>
                 <footer>

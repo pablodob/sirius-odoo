@@ -18,7 +18,9 @@ class SiriusFieldWizard(models.TransientModel):
         ('block', 'Block')
     ], string="Field Type", required=True)
     required = fields.Boolean('Required', default=False)
+    edit_required = fields.Boolean('Required editable', default=True)
     readonly = fields.Boolean('Readonly', default=True)
+    edit_readonly = fields.Boolean('Readonly editable', default=True)
 
     default_value = fields.Char(string="Default Value")
     hint_value = fields.Char(string="Hint")
@@ -30,11 +32,21 @@ class SiriusFieldWizard(models.TransientModel):
     image = fields.Binary('Image')
     type = fields.Selection([('text','Text'),('h1','H1'),('h2','H2'),('h3','H3'),('image','Image')], string='Type')
 
-    @api.model
-    def default_get(self, fields):
-        res = super(SiriusFieldWizard, self).default_get(fields)
-        res['sirius_view_id'] = self.env.context.get('active_id')
-        return res
+    @api.onchange('field_id', 'sirius_view_id')
+    def _onchange_field_id(self):
+        if self.field_id:
+            self.edit_required = not self.field_id.required
+            self.edit_readonly = not self.field_id.readonly
+            self.required = self.field_id.required
+            self.readonly = self.field_id.readonly
+        else:
+            self.edit_required = False
+            self.edit_readonly = False
+
+        if not self.sirius_view_id.can_write:
+            self.readonly = True
+            self.edit_readonly = False
+            self.edit_required = False
 
     def action_save_field(self):
         """Guarda el campo en la vista Sirius dependiendo de su tipo"""
