@@ -17,7 +17,7 @@ class Sirius(http.Controller):
         for view in sirius_views:
             _logger.info(request.env.user.groups_id)
             _logger.info(view.group_id)
-            if view.group_id in request.env.user.groups_id:
+            if request.env.user.has_group(view.group_id):
                 _logger.info("in")
                 view_dict = {
                     'name': view.name,
